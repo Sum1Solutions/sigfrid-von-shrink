@@ -14,13 +14,14 @@ def chat_with_gpt(message):
         # Get engine and prompt from environment variables
         engine = os.environ.get('ENGINE')
         system_prompt = os.environ.get('SYSTEM_PROMPT')
+        temperature = float(os.getenv('TEMPERATURE', '0.9'))
         user_prompt = f"{system_prompt}\n\nUser: {message}\n"
 
         # Generate the chat response using OpenAI's Python package
         response = openai.Completion.create(
             engine=engine,
             prompt=user_prompt,
-            temperature=0.7,
+            temperature=temperature,
             max_tokens=1000,
             n=1,
             stop=None
@@ -31,7 +32,7 @@ def chat_with_gpt(message):
 
         return generated_message
 
-    except openai.Error as e:
+    except openai.error.OpenAIError as e:
         # Handle OpenAI API errors
         print(f"OpenAI API Error: {str(e)}")
         # ... handle the exception ...

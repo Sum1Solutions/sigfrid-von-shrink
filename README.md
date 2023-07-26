@@ -1,10 +1,10 @@
 # Sigfrid von Shrink
 
-Sigfrid von Shrink is a chat application powered by ChatGPT from OpenAI and inspired by Frederik Pohls charachter from the science *fiction* series [Gateway](https://en.wikipedia.org/wiki/Gateway_(novel)) (aka the Heechee Saga).
+Sigfrid von Shrink is a chat-bot App inspired by the AI Psychoanalyst in Frederik Pohl's science *fiction* novel [Gateway](https://en.wikipedia.org/wiki/Gateway_(novel)) (first in the Heechee Saga). Sigfrid is powered by ChatGPT from OpenAI. (This is satirical, is used without anybody's permission, and should not be used in place of professional help! If you need help for your psych issues, as many of us do, get it!)
 
 ### Setup
 
-To run your own AI therapist follow these steps:
+To run your own AI therapist, follow these steps:
 
 ### Prerequisites
 

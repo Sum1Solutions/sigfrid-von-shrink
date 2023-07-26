@@ -1,6 +1,6 @@
 # Sigfrid von Shrink
 
-Sigfrid von Shrink is a chat application  powered by ChatGPT from OpenAI and inspired by Frederik Pohls charachter from the science *fiction* series [Gateway](https://en.wikipedia.org/wiki/Gateway_(novel)) (aka the Heechee Saga).
+Sigfrid von Shrink is a chat application powered by ChatGPT from OpenAI and inspired by Frederik Pohls charachter from the science *fiction* series [Gateway](https://en.wikipedia.org/wiki/Gateway_(novel)) (aka the Heechee Saga).
 
 ### Setup
 

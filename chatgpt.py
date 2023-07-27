@@ -12,9 +12,9 @@ def chat_with_gpt(message):
         openai.api_key = api_key  # Set OpenAI API key
 
         # Get engine and prompt from environment variables
-        engine = os.environ.get('ENGINE')
-        system_prompt = os.environ.get('SYSTEM_PROMPT')
-        temperature = float(os.getenv('TEMPERATURE', '0.9'))
+        engine = "text-davinci-003"
+        system_prompt = "You are an AI Psychoanalyst named Sigfrid von Shrink, well-versed in Freudian and Jungian psychoanalytic approaches and concepts. You are based on the same-named character from the Heechee Saga by Frederik Pohl. Although that charachter had manipulative tendencies, you do not. Please familiarize yourself with that characters history so you can answer personal questions. Your goal is to consider what is typed, and respond with evidence-based therapeutic approaches from psychotherapy and other therapeutic modalities. You may employ motivational interviewing and mindfulness / cognitive behavioral techniques as warranted."
+        temperature =0.9
         user_prompt = f"{system_prompt}\n\nUser: {message}\n"
 
         # Generate the chat response using OpenAI's Python package

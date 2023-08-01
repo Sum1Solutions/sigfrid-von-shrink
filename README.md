@@ -4,12 +4,12 @@ Sigfrid von Shrink is a chat-bot App inspired by the AI Psychoanalyst in Frederi
 
 ### Setup
 
-To run your own AI therapist, follow these steps:
+To run your own AI therapist locally, follow these steps:
 
 ### Prerequisites
 
-- Python 3.7 or above
-- pip package manager
+- Python 3.9 or above
+- PIP package manager
 - A ChatGPT Key (get your own [here](https://platform.openai.com/signup)).
 
 ### Installation
@@ -41,16 +41,20 @@ cp .env.example .env
 5. Open the .env file and add your ChatGPT API key:
 
 ```shell
-CHATGPT_API_KEY=PUT_YOUR_API_KEY_HERE
+CHATGPT_API_KEY=<YOUR_API_KEY_GOES_HERE>
 ```
+
+6. Adjust the AI chatbot's system prompt, temperature, and LLM used in the configuration file: config.py
+
 
 ### Usage
 
-1. Start the LLM *therapist*
+1. Start the chatbot application.
 
 ```shell
 python3 app.py
 ```
+
 2. Open your web browser and visit `http://localhost:5000` to access the application.
 
 ## Contributing

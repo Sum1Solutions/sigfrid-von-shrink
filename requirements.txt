@@ -30,4 +30,4 @@ virtualenv==20.23.1
 virtualenv-clone==0.5.7
 Werkzeug==2.3.6
 yarl==1.9.2
-gunicorn==20.1.0
+gunicorn==22.0.0

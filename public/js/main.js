@@ -14,7 +14,7 @@ const addMessage = (message, sender) => {
 
     // Avatar URLs (replace with your own images if desired)
     const userAvatar = '/images/user-avatar.png';
-    const therapistAvatar = '/images/a2a.png';
+    const therapistAvatar = '/images/sigfrid.png';
     let avatarSrc = sender === 'User' ? userAvatar : therapistAvatar;
     let avatarAlt = sender === 'User' ? 'User' : 'Sigfrid von Shrink';
 

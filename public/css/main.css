@@ -1,0 +1,84 @@
+body, html {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+h1 {
+    text-align: center;
+}
+
+.chat-container {
+    background: #f9fafb;
+    min-height: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.message {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: none;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-right: 0.8rem;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+.user-message {
+    flex-direction: row-reverse;
+    margin-left: auto;
+    background: #e3f2fd;
+    color: #222;
+    border-radius: 18px 18px 4px 18px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.04);
+    padding: 12px 18px;
+}
+
+.user-message .avatar {
+    margin-left: 0.8rem;
+    margin-right: 0;
+}
+
+.therapist-message {
+    background: linear-gradient(135deg, #0084ff 60%, #00bcd4 100%);
+    color: #fff;
+    border-radius: 18px 18px 18px 4px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.06);
+    padding: 12px 18px;
+}
+
+.message p {
+    margin: 0;
+    word-break: break-word;
+}
+
+@media (max-width: 767px) {
+    .chat-container {
+        min-height: 250px;
+        max-height: 300px;
+        padding: 0.5rem;
+    }
+    .message {
+        max-width: 100%;
+    }
+}

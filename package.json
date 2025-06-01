@@ -1,0 +1,8 @@
+{
+  "name": "sigfrid-von-shrink",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "functions/api/chat.js",
+  "dependencies": {
+  }
+}

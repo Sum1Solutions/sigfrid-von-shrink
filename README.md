@@ -1,84 +1,81 @@
 # Sigfrid von Shrink
 
-Sigfrid von Shrink is a chat-bot App inspired by the AI Psychoanalyst in Frederik Pohl's science *fiction* novel [Gateway](https://en.wikipedia.org/wiki/Gateway_(novel)) (first in the Heechee Saga). Sigfrid is powered by ChatGPT from OpenAI. (This is satirical, is used without anybody's permission, and should not be used in place of professional help! If you need help for your psych issues, as many of us do, get it!)
-
-#AI Analrapist (satire, Arrested Development: https://youtu.be/5Bmk-WrYJKc?si=jlMPdd2OrIr-2312&t=17)
-
-### Setup
-
-To run your own AI therapist locally, follow these steps:
-
-### Prerequisites
-
-- Python 3.9 or above
-- PIP package manager
-- A ChatGPT Key (get your own [here](https://platform.openai.com/signup)).
-
-### Installation
-
-1. Clone the repository
-
-```shell
-git clone https://github.com/Sum1Solutions/Sigfrid-von-Shrink.git
-```
-
-2. Navigate into the project directory
-
-```shell
-cd Sigfrid-von-Shrink
-```
-
-3. Install the required dependencies
-
-```shell
-pip install -r requirements.txt
-```
-
-4. Copy the .env.example so you have your own .env file
-
-```shell
-cp .env.example .env
-```
-
-5. Open the .env file and add your ChatGPT API key:
-
-```shell
-CHATGPT_API_KEY=<YOUR_API_KEY_GOES_HERE>
-```
-
-6. Adjust the AI chatbot's system prompt, temperature, and LLM used in the configuration file: config.py
-
-
-### Usage
-
-1. Start the chatbot application.
-
-```shell
-python3 app.py
-```
-
-2. Open your web browser and visit `http://localhost:5000` to access the application.
-
-## Contributing
-
-Contributions to Sigfrid von Shrink are welcome! If you encounter any issues or have suggestions for improvement, please feel free to open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License given that I don't really understand all the options and what they mean.
+Sigfrid von Shrink is a chatbot inspired by the AI psychoanalyst in Frederik Pohl's science fiction novel [Gateway](https://en.wikipedia.org/wiki/Gateway_(novel)) (the first in the Heechee Saga). Sigfrid is powered by OpenAI's ChatGPT. (Satirical, not medical advice!)
 
 ---
 
-## Cloudflare Pages Deployment (2025+)
+## Project Evolution: Python/Flask → Cloudflare Pages/Workers (2025+)
 
-### Overview
-- **Frontend**: All static files are in `/public` (HTML, CSS, JS, images).
-- **API Backend**: `/functions/api/chat.js` is a Cloudflare Function (using Node.js) that handles chat requests and calls OpenAI.
-- **No Python required**: All backend logic is now serverless JavaScript.
+### Legacy Approach (2023)
+- **Backend:** Python Flask app, session memory, Flask-Session, OpenAI Python SDK.
+- **Frontend:** Jinja2 HTML templates, static JS/CSS, Flask routes.
+- **Deployment:** Manual or Heroku-style, Python dependencies, `.env` files.
 
-### Automatic Deploys from GitHub
-1. **Push to GitHub**: Any push to your repo triggers a new build on Cloudflare Pages.
-2. **Cloudflare Pages**: Connect your GitHub repo in the Cloudflare Pages dashboard.
+### Modern Approach (2025+)
+- **Backend:** Cloudflare Pages + Cloudflare Functions (JavaScript/Node.js, serverless).
+- **Frontend:** Static assets in `/public` (HTML, CSS, JS, images).
+- **API:** `/functions/api/chat.js` handles chat via OpenAI API using native `fetch` (no SDKs).
+- **Memory:** Conversation memory is managed client-side (in the browser) and sent with each request.
+- **Deployment:** GitHub integration, automatic deploys, environment variables set in Cloudflare dashboard.
+- **No Python required:** Fully serverless, modern, and scalable.
+
+### Why the Change?
+- **Performance:** Serverless functions scale instantly, no cold starts or server maintenance.
+- **Simplicity:** No Python or Flask dependencies—just JavaScript and static files.
+- **Security:** API keys and secrets managed via Cloudflare dashboard, never in code.
+- **Modern best practices:** GitHub-based CI/CD, instant rollbacks, and preview deploys.
+- **Cost:** Free/low-cost hosting for static and serverless apps.
+
+---
+
+## Quick Start (Local Dev)
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/Sum1Solutions/Sigfrid-von-Shrink.git
+   cd Sigfrid-von-Shrink
+   ```
+2. Install Wrangler CLI (if not already):
+   ```sh
+   npm install -g wrangler
+   ```
+3. Add your OpenAI key and config to `.dev.vars` (never commit this file!):
+   ```env
+   OPENAI_API_KEY=sk-...
+   OPENAI_MODEL=gpt-3.5-turbo
+   OPENAI_TEMPERATURE=0.7
+   OPENAI_MAX_TOKENS=512
+   SYSTEM_PROMPT=You are Sigfrid von Shrink, ...
+   ```
+4. Run locally:
+   ```sh
+   wrangler pages dev public
+   ```
+5. Open [http://localhost:8788](http://localhost:8788) and chat!
+
+---
+
+## Cloudflare Pages Deployment
+
+1. **Connect GitHub repo** in Cloudflare Pages dashboard.
+2. **Set build output directory:** `public`
+3. **Set functions directory:** `functions`
+4. **Add environment variables** (OPENAI_API_KEY as secret, others as text).
+5. **Push to GitHub**: Deploys are automatic.
+6. **Access your app:** e.g., `https://sigfrid-von-shrink.pages.dev` or your custom domain.
+
+---
+
+## Contributing
+Issues and PRs are welcome! See [GitHub repo](https://github.com/Sum1Solutions/Sigfrid-von-Shrink).
+
+## License
+MIT License.
+
+---
+
+### Historical Note
+This project began as a Flask/Python experiment but is now a modern, serverless, scalable Cloudflare Pages/Workers app. All legacy backend code has been removed for clarity and maintainability.
 3. **Build Output Directory**: Set to `public`.
 4. **Functions Directory**: Set to `functions` (auto-detected).
 

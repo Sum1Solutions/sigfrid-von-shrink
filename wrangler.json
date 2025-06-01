@@ -1,7 +1,4 @@
 {
   "name": "sigfrid-von-shrink",
-  "compatibility_date": "2025-06-01",
-  "assets": {
-    "directory": "./public"
-  }
+  "compatibility_date": "2025-06-01"
 }

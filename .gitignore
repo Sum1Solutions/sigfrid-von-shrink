@@ -19,7 +19,9 @@ instance/
 
 
 # Environments
+# Local env files
 .env
+.dev.vars
 .venv
 env/
 venv/

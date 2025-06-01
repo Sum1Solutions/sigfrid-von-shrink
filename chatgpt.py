@@ -6,34 +6,43 @@ from config import ENGINE, PROMPT, TEMPERATURE, MAX_TOKENS
 # Load environment variables from .env file
 load_dotenv()
 
-def chat_with_gpt(message):
+def chat_with_gpt(history):
     try:
-        # Get ChatGPT API credentials from environment variables
         api_key = os.getenv('CHATGPT_API_KEY')
-        openai.api_key = api_key  # Set OpenAI API key
+        openai.api_key = api_key
 
-        # Build the user prompt
-        user_prompt = f"{PROMPT}\n\nUser: {message}\n"
-
-        # Generate the chat response using OpenAI's Python package
-        response = openai.Completion.create(
-            engine=ENGINE,
-            prompt=user_prompt,
-            temperature=TEMPERATURE,
-            max_tokens=MAX_TOKENS
-        )
-
-        # Extract the generated message from the response
-        generated_message = response.choices[0].text.strip()
-
-        return generated_message
-
+        # Try to use Chat API if ENGINE is a chat model (e.g. gpt-3.5-turbo)
+        if ENGINE.startswith('gpt-3.5') or ENGINE.startswith('gpt-4'):
+            # Prepare messages in OpenAI chat format
+            messages = []
+            if PROMPT:
+                messages.append({"role": "system", "content": PROMPT})
+            for turn in history:
+                messages.append({"role": turn['role'], "content": turn['content']})
+            response = openai.ChatCompletion.create(
+                model=ENGINE,
+                messages=messages,
+                temperature=TEMPERATURE,
+                max_tokens=MAX_TOKENS
+            )
+            generated_message = response.choices[0].message['content'].strip()
+            return generated_message
+        else:
+            # Fallback: concatenate history for text completion API
+            prompt = PROMPT + "\n\n"
+            for turn in history:
+                prefix = "User:" if turn['role'] == 'user' else "AI:"
+                prompt += f"{prefix} {turn['content']}\n"
+            prompt += "AI:"
+            response = openai.Completion.create(
+                engine=ENGINE,
+                prompt=prompt,
+                temperature=TEMPERATURE,
+                max_tokens=MAX_TOKENS
+            )
+            generated_message = response.choices[0].text.strip()
+            return generated_message
     except openai.error.OpenAIError as e:
-        # Handle OpenAI API errors
         print(f"OpenAI API Error: {str(e)}")
-        # ... handle the exception ...
-
     except Exception as e:
-        # Handle other exceptions
         print(f"Error: {str(e)}")
-        # ... handle the exception ...

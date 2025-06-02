@@ -1,16 +1,16 @@
-import { serveStatic } from "@hono/node-server/serve-static";
-import { Hono } from "hono";
+import { Hono } from 'hono'
+import { serveStatic } from 'hono/cloudflare-workers'
 
-const app = new Hono();
+const app = new Hono()
 
-// Serve static assets from public
-app.use("/*", serveStatic({ root: "./public" }));
+// Serve static assets from ./public
+app.use('/*', serveStatic({ root: './public' }))
 
-// Example API endpoint (migrated from /functions/api/chat.js)
-app.post("/api/chat", async (c) => {
-  const { message, history } = await c.req.json();
-  // ...OpenAI API logic here (use env vars)
-  return c.json({ reply: "This is a placeholder reply from Sigfrid von Shrink." });
-});
+// Example API endpoint
+app.post('/api/chat', async (c) => {
+  const { message, history } = await c.req.json()
+  // ...OpenAI API logic here
+  return c.json({ reply: "This is a placeholder reply from Sigfrid von Shrink." })
+})
 
-export default app;
+export default app

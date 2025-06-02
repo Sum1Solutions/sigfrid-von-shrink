@@ -1,0 +1,13 @@
+name = "sigfrid-von-shrink-worker"
+main = "worker.js"
+compatibility_date = "2025-06-02"
+
+[vars]
+# Add your environment variables here, or set them in the Cloudflare dashboard
+# OPENAI_API_KEY = "sk-..."
+# OPENAI_MODEL = "gpt-3.5-turbo"
+# ...
+
+[site]
+bucket = "./public"
+entry-point = "."

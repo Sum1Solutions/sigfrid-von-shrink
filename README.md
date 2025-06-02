@@ -15,27 +15,46 @@ Sigfrid von Shrink is a chatbot inspired by the AI psychoanalyst in Frederik Poh
 - **Backend:** Cloudflare Pages + Cloudflare Functions (JavaScript/Node.js, serverless).
 - **Frontend:** Static assets in `/public` (HTML, CSS, JS, images).
 - **API:** `/functions/api/chat.js` handles chat via OpenAI API using native `fetch` (no SDKs).
-- **Memory:** Conversation memory is managed client-side (in the browser) and sent with each request.
-- **Deployment:** GitHub integration, automatic deploys, environment variables set in Cloudflare dashboard.
-- **No Python required:** Fully serverless, modern, and scalable.
-
-### Why the Change?
-- **Performance:** Serverless functions scale instantly, no cold starts or server maintenance.
-- **Simplicity:** No Python or Flask dependencies—just JavaScript and static files.
-- **Security:** API keys and secrets managed via Cloudflare dashboard, never in code.
-- **Modern best practices:** GitHub-based CI/CD, instant rollbacks, and preview deploys.
-- **Cost:** Free/low-cost hosting for static and serverless apps.
-
 ---
 
-## Quick Start (Local Dev)
+## Overview
+- **Platform:** Cloudflare Workers (edge, serverless)
+- **Features:**
+  - Static site (chat UI, assets) served from `/public`
+  - Serverless API endpoint at `/api/chat` (OpenAI integration)
+  - Secure environment variables
+  - No servers, no DevOps, instant global scaling
 
-1. Clone the repository:
+## Architecture
+- **worker.js:** Main Worker script (serves static + API)
+- **public/**: Static assets (HTML, CSS, JS, images)
+- **wrangler.toml:** Worker/project config
+
+## Directory Structure
+```
+/
+├── public/
+│   ├── index.html
+│   ├── css/
+│   ├── images/
+│   └── js/
+├── worker.js
+├── wrangler.toml
+├── package.json
+└── README.md
+```
+
+## Local Development
+1. Clone the repo:
    ```sh
    git clone https://github.com/Sum1Solutions/Sigfrid-von-Shrink.git
    cd Sigfrid-von-Shrink
    ```
-2. Add your OpenAI key and config to `.dev.vars` (never commit this file!):
+2. Install dependencies:
+   ```sh
+   npm install hono @hono/node-server
+   ```
+3. Add your OpenAI key and config to `.dev.vars` (never commit this file!):
    ```env
    OPENAI_API_KEY=sk-...
    OPENAI_MODEL=gpt-3.5-turbo
@@ -43,27 +62,38 @@ Sigfrid von Shrink is a chatbot inspired by the AI psychoanalyst in Frederik Poh
    OPENAI_MAX_TOKENS=512
    SYSTEM_PROMPT=You are Sigfrid von Shrink, ...
    ```
-3. Run locally:
+4. Start local dev:
    ```sh
-   npx wrangler pages dev public
+   npx wrangler dev
    ```
-4. Open [http://localhost:8788](http://localhost:8788) and chat!
+5. Open [http://localhost:8787](http://localhost:8787) and chat!
+
+## Deploy to Cloudflare Workers
+1. Set environment variables in the Cloudflare dashboard (Secrets).
+2. Deploy:
+   ```sh
+   npx wrangler deploy
+   ```
+3. Access your app at your Workers domain or custom domain.
+
+## How Static + API Routing Works
+- **Static assets:** Any request matching a file in `/public` is served as static.
+- **API endpoint:** POST `/api/chat` is handled by the Worker (calls OpenAI, returns reply).
+- **All other routes:** Fallback to static or 404.
+
+## Environment Variables
+- Set in `.dev.vars` for local dev (never commit!)
+- Set in Cloudflare dashboard for production
+
+## Why Cloudflare Workers?
+- Unified static + dynamic at the edge
+- No servers, instant scaling
+- Generous free tier
+- Modern, future-proof architecture
 
 ---
 
-## Cloudflare Pages Deployment
-
-1. **Connect your GitHub repo** in Cloudflare Pages dashboard.
-2. **Set output directory:** `public`
-3. **Set functions directory:** `functions`
-4. **Leave build and deploy commands blank** (not needed).
-5. **Add environment variables** (OPENAI_API_KEY as secret, others as text).
-6. **Push to GitHub**: Deploys are automatic.
-7. **Access your app:** e.g., `https://sigfrid-von-shrink.pages.dev` or your custom domain.
-
----
-
-> **Note:** `wrangler.toml` and `wrangler.json` are not required for Cloudflare Pages + Functions unless you need advanced configuration. You may safely delete them for a simpler setup.
+> This repo is an example of best practices for deploying modern web apps on Cloudflare Workers. Fork, adapt, and build your own edge-powered projects!
 
 ---
 

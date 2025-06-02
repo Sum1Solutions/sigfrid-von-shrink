@@ -109,4 +109,51 @@ This project began as a Flask/Python experiment but is now a modern, serverless,
 package.json       # Node.js dependencies for Functions
 ```
 
+
+This project is licensed under the MIT License given that I don't really understand all the options and what they mean.
+
+---
+
+## Cloudflare Pages Deployment (2025+)
+
+### Overview
+- **Frontend**: All static files are in `/public` (HTML, CSS, JS, images).
+- **API Backend**: `/functions/api/chat.js` is a Cloudflare Function (using Node.js) that handles chat requests and calls OpenAI.
+- **No Python required**: All backend logic is now serverless JavaScript.
+
+### Automatic Deploys from GitHub
+1. **Push to GitHub**: Any push to your repo triggers a new build on Cloudflare Pages.
+2. **Cloudflare Pages**: Connect your GitHub repo in the Cloudflare Pages dashboard.
+3. **Build Output Directory**: Set to `public`.
+4. **Functions Directory**: Set to `functions` (auto-detected).
+
+### Environment Variables (Secrets)
+- Go to your Cloudflare Pages project > Settings > Environment Variables.
+- Add:
+  - `OPENAI_API_KEY` — your OpenAI API key
+  - `OPENAI_MODEL` (optional, default: `gpt-3.5-turbo`)
+  - `OPENAI_TEMPERATURE` (optional, e.g. `0.7`)
+  - `OPENAI_MAX_TOKENS` (optional, e.g. `512`)
+  - `SYSTEM_PROMPT` (optional, system message for the AI)
+
+### How the Chat API Works
+- The frontend sends a POST request to `/api/chat` with `{ message, history }`.
+- The Cloudflare Function builds the prompt and calls OpenAI, returning the AI response.
+- Conversation memory can be managed in the browser (localStorage) for stateless memory, or sent as `history` with each request.
+
+### Local Development
+- Install [Wrangler CLI](https://developers.cloudflare.com/pages/platform/functions/#developing-functions-locally) for local testing:
+  ```sh
+  npm install -g wrangler
+  wrangler pages dev public
+  ```
+- Or push to GitHub and let Cloudflare Pages deploy automatically.
+
+### Project Structure (Cloudflare Pages)
+```
+/public            # Static site assets (index.html, css, js, images)
+/functions/api/    # Cloudflare Functions (chat.js)
+package.json       # Node.js dependencies for Functions
+```
+
 ---

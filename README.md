@@ -35,11 +35,7 @@ Sigfrid von Shrink is a chatbot inspired by the AI psychoanalyst in Frederik Poh
    git clone https://github.com/Sum1Solutions/Sigfrid-von-Shrink.git
    cd Sigfrid-von-Shrink
    ```
-2. Install Wrangler CLI (if not already):
-   ```sh
-   npm install -g wrangler
-   ```
-3. Add your OpenAI key and config to `.dev.vars` (never commit this file!):
+2. Add your OpenAI key and config to `.dev.vars` (never commit this file!):
    ```env
    OPENAI_API_KEY=sk-...
    OPENAI_MODEL=gpt-3.5-turbo
@@ -47,22 +43,27 @@ Sigfrid von Shrink is a chatbot inspired by the AI psychoanalyst in Frederik Poh
    OPENAI_MAX_TOKENS=512
    SYSTEM_PROMPT=You are Sigfrid von Shrink, ...
    ```
-4. Run locally:
+3. Run locally:
    ```sh
-   wrangler pages dev public
+   npx wrangler pages dev public
    ```
-5. Open [http://localhost:8788](http://localhost:8788) and chat!
+4. Open [http://localhost:8788](http://localhost:8788) and chat!
 
 ---
 
 ## Cloudflare Pages Deployment
 
-1. **Connect GitHub repo** in Cloudflare Pages dashboard.
-2. **Set build output directory:** `public`
+1. **Connect your GitHub repo** in Cloudflare Pages dashboard.
+2. **Set output directory:** `public`
 3. **Set functions directory:** `functions`
-4. **Add environment variables** (OPENAI_API_KEY as secret, others as text).
-5. **Push to GitHub**: Deploys are automatic.
-6. **Access your app:** e.g., `https://sigfrid-von-shrink.pages.dev` or your custom domain.
+4. **Leave build and deploy commands blank** (not needed).
+5. **Add environment variables** (OPENAI_API_KEY as secret, others as text).
+6. **Push to GitHub**: Deploys are automatic.
+7. **Access your app:** e.g., `https://sigfrid-von-shrink.pages.dev` or your custom domain.
+
+---
+
+> **Note:** `wrangler.toml` and `wrangler.json` are not required for Cloudflare Pages + Functions unless you need advanced configuration. You may safely delete them for a simpler setup.
 
 ---
 
